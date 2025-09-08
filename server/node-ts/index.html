@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reveal BI TypeScript Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .link-section {
+            margin: 20px 0;
+        }
+        .link-section h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .link {
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+            padding: 10px 15px;
+            background-color: #007acc;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .link:hover {
+            background-color: #005f99;
+        }
+        .info {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reveal BI TypeScript Server</h1>
+        
+        <div class="info">
+            <p><strong>Server Status:</strong> Running</p>
+            <p><strong>Framework:</strong> TypeScript + Express.js</p>
+            <p><strong>SDK:</strong> Reveal SDK for Node.js</p>
+        </div>
+
+        <div class="link-section">
+            <h3>API Endpoints:</h3>
+            <a href="/dashboards/" class="link">Dashboard Names</a>
+            <a href="/dashboards/names" class="link">Dashboard Details</a>
+            <a href="/dashboards/visualizations" class="link">Visualizations</a>
+        </div>
+
+        <div class="link-section">
+            <h3>Documentation:</h3>
+            <a href="/api-docs" class="link">Swagger API Docs</a>
+            <a href="/swagger.json" class="link">OpenAPI JSON</a>
+        </div>
+
+        <div class="link-section">
+            <h3>Dashboard Examples:</h3>
+            <a href="/dashboards/Orders%20Freight/exists" class="link">Check Orders Freight Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

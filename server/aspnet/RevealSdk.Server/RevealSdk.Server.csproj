@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+    <UserSecretsId>22ab5f83-c988-4788-afbd-3211037c2cc6</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Dashboards\**" />
+    <Content Remove="Dashboards\**" />
+    <EmbeddedResource Remove="Dashboards\**" />
+    <None Remove="Dashboards\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Dashboards\Manufacturing.rdash">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dashboards\Marketing.rdash">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dashboards\Sales.rdash">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Reveal.Sdk.AspNetCore" Version="1.8.0" />
+    <PackageReference Include="Reveal.Sdk.Data.PostgreSQL" Version="1.8.0" />
+    <PackageReference Include="Reveal.Sdk.Dom" Version="0.1.656-beta" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reveal Sdk - Load Dashboard</title>
+    <link rel="stylesheet" href="styles/common.css">
+</head>
+
+<body>
+    <div class="dashboard-controls">
+        <div class="control-group">
+            <label class="control-label" for="dashboardSelect">Select Dashboard:</label>
+            <div class="dashboard-select">
+                <select id="dashboardSelect">
+                    <option value="">Loading dashboards...</option>
+                </select>
+            </div>
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="spinner"></div>
+                <span>Loading dashboard...</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="revealView"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" ></script>    
+    <script>window.revealDisableKeyboardManagement = true;</script>   
+    <script src="https://dl.revealbi.io/reveal/libs/1.8.0/infragistics.reveal.js"></script>
+
+    <script type="text/javascript">        
+        $.ig.RevealSdkSettings.setBaseUrl("http://localhost:5111/");          
+        $.ig.RevealSdkSettings.betaFeatures.enable("newTooltip");
+        
+        let revealView;
+        let dashboards = [];
+        
+        // Load dashboard names from API
+        async function loadDashboardNames() {
+            try {
+                const response = await fetch('http://localhost:5111/dashboards/names');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                dashboards = await response.json();
+                populateDropdown();
+                
+                // Load first dashboard by default
+                if (dashboards.length > 0) {
+                    loadDashboard(dashboards[0].dashboardFileName);
+                }
+            } catch (error) {
+                console.error('Error loading dashboard names:', error);
+                const select = document.getElementById('dashboardSelect');
+                select.innerHTML = '<option value="">Error loading dashboards</option>';
+            }
+        }
+        
+        // Populate the dropdown with dashboard names
+        function populateDropdown() {
+            const select = document.getElementById('dashboardSelect');
+            select.innerHTML = '';
+            
+            dashboards.forEach((dashboard, index) => {
+                const option = document.createElement('option');
+                option.value = dashboard.dashboardFileName;
+                option.textContent = dashboard.dashboardTitle;
+                if (index === 0) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            
+            // Add change event listener
+            select.addEventListener('change', function() {
+                if (this.value) {
+                    loadDashboard(this.value);
+                }
+            });
+        }
+        
+        // Load dashboard function
+        function loadDashboard(dashboardFileName) {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            loadingIndicator.classList.add('show');
+            
+            $.ig.RVDashboard.loadDashboard(dashboardFileName).then(dashboard => {
+                if (!revealView) {
+                    revealView = new $.ig.RevealView("#revealView");
+                    revealView.interactiveFilteringEnabled = true;
+                }
+                revealView.dashboard = dashboard;
+                loadingIndicator.classList.remove('show');
+            }).catch(error => {
+                console.error('Error loading dashboard:', error);
+                loadingIndicator.classList.remove('show');
+            });
+        }
+        
+        // Initialize when page loads
+        $(document).ready(function() {
+            loadDashboardNames();
+        });
+    </script>
+</body>
+
+</html>
