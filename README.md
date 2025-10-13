@@ -24,7 +24,7 @@ builder.Services.AddControllers().AddReveal(builder =>
         .AddDataSourceProvider<DataSourceProvider>()
         .AddUserContextProvider<UserContextProvider>()
         .AddObjectFilter<ObjectFilterProvider>()
-        .DataSources.RegisterMicrosoftSqlServer();
+        .DataSources.RegisterPostgreSQL();
 });
 ```
 or in TypeScript / JavaScript in your app.ts / main.js:
@@ -45,13 +45,13 @@ app.use('/', reveal(revealOptions));
 
 In this setup:
 - **AddReveal Configuration**: Registers essential services like `AuthenticationProvider` and `DataSourceProvider`, while including optional configurations such as `UserContextProvider`, `ObjectFilterProvider`, and `DashboardProvider` as needed.
-- **Data Sources**: Registers the Microsoft SQL Server connector, which is necessary for SQL Server integrations in .NET Core.  For NodeJS, you are not required to install / register the SQL Server connector separately.
+- **Data Sources**: Registers the Postgres SQL connector, which is necessary for Postgres integrations in .NET Core.  For NodeJS, you are not required to install / register the Postgres SQL connector separately.
 
 ### Core Server Functions
 
 #### Authentication
 
-Authentication is handled by implementing the `IRVAuthenticationProvider`. A username and password credential are created, and the connection details are stored in the data source provider. The example utilizes an Azure SQL instance.
+Authentication is handled by implementing the `IRVAuthenticationProvider`. A username and password credential are created, and the connection details are stored in the data source provider. 
 
 - **[Authentication](https://help.revealbi.io/web/authentication/)**: Detailed documentation on setting up authentication.
 
@@ -59,7 +59,7 @@ Authentication is handled by implementing the `IRVAuthenticationProvider`. A use
 
 The `DataSourceProvider` specifies the location of the database, including host, database name, schema, and port. This information can be retrieved from various sources, such as app settings, Azure Key Vault, or configuration files. The example uses app settings to store these details.
 
-- **[Data Source / Data Source Items](https://help.revealbi.io/web/adding-data-sources/ms-sql-server/)**: Guidance on setting up and managing data sources.
+- **[Data Source / Data Source Items](https://help.revealbi.io/web/adding-data-sources/postgres/)**: Guidance on setting up and managing data sources.
 
 #### Data Source Items
 
@@ -119,14 +119,14 @@ The dashboard title displayed to the user can differ from the underlying file na
 
 ## Video Training
 
-Explore these video resources to help you set up and configure Reveal BI for .NET and SQL Server:
+Explore these video resources to help you set up and configure Reveal BI for .NET and SQL Server, just change the type to Postgres SQL in each function to map to Postgres SQL:
 
 - [Setting Up a .NET Core Server with Reveal BI: Quick & Easy Guide](https://youtu.be/ZGxZhnr0aIw?si=qmtVXL_eJkTZ8oEq)
 - [Configuring SQL Server in a .NET Core Server in Reveal BI](https://youtu.be/oSQ13IikHn0?si=cizw6Hr_cqVWBDXz)
 - [Leveraging SQL Server Stored Procedures and Parameters in Reveal BI](https://youtu.be/Q2-TzTi7YJE?si=udnNCOf2fJCCDGqr)
 - [Configuring Row Level Security with UserContext in Reveal BI](https://youtu.be/dJttjCU-xC8?si=qyFDvuqtHR1HGIpf)
 
-For a comprehensive learning path, check out the **.NET & SQL Server Track Playlist**:  
+For a comprehensive learning path, check out the **.NET Core Track Playlist**:  
 [https://youtube.com/playlist?list=PLprTqzVaLDG8TSd0nIwgmAkwIF0xkJRI7&si=-TvFdEN4vNzeFfRP](https://youtube.com/playlist?list=PLprTqzVaLDG8TSd0nIwgmAkwIF0xkJRI7&si=-TvFdEN4vNzeFfRP)
 
 ## Licensing
