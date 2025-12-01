@@ -22,7 +22,7 @@ Quick refresher on setting up the Java server and HTML clients (uses Databricks 
 - **Java / Postgres sample server & clients**  
   - [RevealBi Postgres Samples (Java / Postgres)](https://github.com/RevealBi/sdk-samples-postgres)
 - **Dynamic Dashboard Builder – Sample Apps & Code**  
-  - [Dashboard Builder – Org & Repositories](https://github.com/orgs/RevealBi-DashboardBuilder/repositories) :contentReference[oaicite:0]{index=0}
+  - [Dashboard Builder – Org & Repositories](https://github.com/orgs/RevealBi-DashboardBuilder/repositories)
 
 ### License Key Setup
 
