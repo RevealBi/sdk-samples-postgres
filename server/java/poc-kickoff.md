@@ -26,16 +26,16 @@ Quick refresher on setting up the Java server and HTML clients (uses Databricks 
 
 ### License Key Setup
 
-- [How to Add a License Key](https://help.revealbi.io/web/adding-license-key/) :contentReference[oaicite:1]{index=1}
+- [How to Add a License Key](https://help.revealbi.io/web/adding-license-key/) 
 
 ---
 
 ## 💻 Frontend SDK & Web Integration
 
 - **JavaScript SDK Samples (HTML / JS / frameworks):**  
-  - [Reveal JS SDK Samples (GitHub)](https://github.com/RevealBi/sdk-samples-javascript) :contentReference[oaicite:2]{index=2}
+  - [Reveal JS SDK Samples (GitHub)](https://github.com/RevealBi/sdk-samples-javascript)
 - **Getting Started with Reveal for JavaScript:**  
-  - [Reveal JavaScript Client Guide](https://help.revealbi.io/web/getting-started-javascript/) :contentReference[oaicite:3]{index=3}
+  - [Reveal JavaScript Client Guide](https://help.revealbi.io/web/getting-started-javascript/) 
 - **Product Documentation Hub:**  
   - [Reveal Help & Docs](https://help.revealbi.io/web/)
 
@@ -44,7 +44,7 @@ Quick refresher on setting up the Java server and HTML clients (uses Databricks 
 ## 🛠️ Backend Setup (Java / Postgres)
 
 - **Install & Configure Java Server SDK (Spring Boot + Jersey):**  
-  - [Reveal Server SDK Setup – Spring Boot / Jersey](https://help.revealbi.io/web/getting-started-spring-boot-jersey/) :contentReference[oaicite:4]{index=4}
+  - [Reveal Server SDK Setup – Spring Boot / Jersey](https://help.revealbi.io/web/getting-started-spring-boot-jersey/)
 
 Use the Postgres sample repo above together with this guide to stand up your Reveal server with a Postgres backend.
 
@@ -53,14 +53,14 @@ Use the Postgres sample repo above together with this guide to stand up your Rev
 ## 📅 Product Updates
 
 - **Latest Release Notes:**  
-  - [Reveal Release Notes](https://help.revealbi.io/web/release-notes/) :contentReference[oaicite:5]{index=5}
+  - [Reveal Release Notes](https://help.revealbi.io/web/release-notes/)
 
 ---
 
 ## 📺 Tutorials & Demos
 
 - **YouTube Playlist / Recent Videos:**  
-  - [Reveal Videos](https://www.youtube.com/@RevealBI/videos) :contentReference[oaicite:6]{index=6}
+  - [Reveal Videos](https://www.youtube.com/@RevealBI/videos)
 - **Full Reveal BI Video Library (Channel Home):**  
   - [Reveal BI YouTube Channel](https://www.youtube.com/@RevealBI)
 
