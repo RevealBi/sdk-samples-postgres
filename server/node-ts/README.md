@@ -9,7 +9,6 @@ src/
 ├── main.ts          - Entry point (equivalent to main.js)
 ├── reveal.ts        - Main Reveal class with SDK configuration
 ├── revealdom.ts     - DOM manipulation and dashboard routes
-└── app.ts          - Original TypeScript implementation
 
 dashboards/          - Dashboard files (.rdash)
 package.json         - Project dependencies and scripts
