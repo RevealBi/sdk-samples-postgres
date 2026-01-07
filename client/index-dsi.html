@@ -39,8 +39,9 @@
     <div id="revealView"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <script src="https://dl.revealbi.io/reveal/libs/1.8.0/infragistics.reveal.js"></script>
-
+    <!-- Do not use CDN in production - download JS/TS files local -->
+    <script src="https://dl.revealbi.io/reveal/libs/1.8.2/infragistics.reveal.js"></script>
+    
     <script type="text/javascript">
         $.ig.RevealSdkSettings.setBaseUrl("http://localhost:5111/");     
         $.ig.RevealSdkSettings.enableActionsOnHoverTooltip = true;
