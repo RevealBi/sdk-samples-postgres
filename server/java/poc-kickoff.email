@@ -1,0 +1,79 @@
+Reveal BI PoC – Java / Postgres Starter
+
+We’re excited to kick off this Reveal BI Proof of Concept with you. This document collects all the key resources you’ll need—from backend setup to frontend customization.
+
+Trial key
+Your sales rep will send your Reveal trial key at the start of the kickoff meeting.
+
+---
+
+Kickoff Video
+
+Quick refresher on setting up the Java server and HTML clients.
+(Note: The demo uses Databricks, but the code is identical for Postgres—the only difference is the data source type.)
+
+[https://youtu.be/lSKaXMfqCXI](https://youtu.be/lSKaXMfqCXI)
+
+---
+
+Key Resources
+
+Postgres Integration – Sample Apps & Code
+
+Java / Postgres sample server & clients
+[https://github.com/RevealBi/sdk-samples-postgres](https://github.com/RevealBi/sdk-samples-postgres)
+
+Dynamic Dashboard Builder – Sample Apps & Code
+[https://github.com/orgs/RevealBi-DashboardBuilder/repositories](https://github.com/orgs/RevealBi-DashboardBuilder/repositories)
+
+License Key Setup
+
+How to Add a License Key
+[https://help.revealbi.io/web/adding-license-key/](https://help.revealbi.io/web/adding-license-key/)
+
+---
+
+Frontend SDK & Web Integration
+
+JavaScript SDK Samples (HTML / JS / frameworks)
+[https://github.com/RevealBi/sdk-samples-javascript](https://github.com/RevealBi/sdk-samples-javascript)
+
+Getting Started with Reveal for JavaScript
+[https://help.revealbi.io/web/getting-started-javascript/](https://help.revealbi.io/web/getting-started-javascript/)
+
+Product Documentation Hub
+[https://help.revealbi.io/web/](https://help.revealbi.io/web/)
+
+---
+
+Backend Setup (Java / Postgres)
+
+Install & Configure Java Server SDK (Spring Boot + Jersey)
+[https://help.revealbi.io/web/getting-started-spring-boot-jersey/](https://help.revealbi.io/web/getting-started-spring-boot-jersey/)
+
+Use the Postgres sample repository together with this guide to stand up your Reveal server with a Postgres backend.
+
+---
+
+Product Updates
+
+Latest Release Notes
+[https://help.revealbi.io/web/release-notes/](https://help.revealbi.io/web/release-notes/)
+
+---
+
+Tutorials & Demos
+
+YouTube Playlist / Recent Videos
+[https://www.youtube.com/@RevealBI/videos](https://www.youtube.com/@RevealBI/videos)
+
+Full Reveal BI Video Library (Channel Home)
+[https://www.youtube.com/@RevealBI](https://www.youtube.com/@RevealBI)
+
+---
+
+Community & Support
+
+Reveal Discord – Direct Access to the Product Team
+(Invite link to be shared separately)
+
