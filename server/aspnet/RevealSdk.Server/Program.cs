@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
+app.UseCors("AllowAll");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -53,7 +53,7 @@ app.MapGet("/dashboards/{name}/thumbnail", async (string name) =>
     {
         return Results.NotFound();
     }
-});
+}).RequireCors("AllowAll");
 
 // Using Reveal DOM Library to retrieve dashboard names and titles from the Dashboards directory
 app.MapGet("/dashboards/names", () =>
@@ -89,16 +89,17 @@ app.MapGet("/dashboards/names", () =>
         return Results.Problem("An unexpected error occurred while processing the request.");
     }
 
-}).Produces<IEnumerable<DashboardNames>>(StatusCodes.Status200OK)
+}).RequireCors("AllowAll")
+.Produces<IEnumerable<DashboardNames>>(StatusCodes.Status200OK)
 .Produces(StatusCodes.Status404NotFound)
 .ProducesProblem(StatusCodes.Status500InternalServerError);
 
-app.UseHttpsRedirection();
+// if (app.Environment.IsDevelopment())
+// {
+//   app.UseCors("AllowAll");
+// }
 
-if (app.Environment.IsDevelopment())
-{
-  app.UseCors("AllowAll");
-}
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

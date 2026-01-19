@@ -11,7 +11,8 @@ namespace RevealSdk.Server.Reveal
             IRVDataSourceCredential userCredential = new RVIntegratedAuthenticationCredential();
             if (dataSource is RVPostgresDataSource)
             {
-                userCredential = new RVUsernamePasswordDataSourceCredential((string)userContext.Properties["Username"], (string)userContext.Properties["Password"]);
+                userCredential = new RVUsernamePasswordDataSourceCredential((string)userContext.Properties["Username"],
+                        (string)userContext.Properties["Password"]);
             }
             return Task.FromResult(userCredential);
         }

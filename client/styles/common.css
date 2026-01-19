@@ -44,10 +44,43 @@ body {
 .dashboard-select {
     position: relative;
     min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .dashboard-select {
     min-width: 250px;
+}
+
+/* Refresh button */
+.refresh-btn {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: #374151;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.refresh-btn:hover {
+    border-color: #9ca3af;
+    background-color: #f9fafb;
+}
+
+.refresh-btn:active {
+    background-color: #f3f4f6;
+}
+
+.refresh-btn:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .custom-select select,

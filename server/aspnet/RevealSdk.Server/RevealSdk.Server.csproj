@@ -28,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reveal.Sdk.AspNetCore" Version="1.8.0" />
-    <PackageReference Include="Reveal.Sdk.Data.PostgreSQL" Version="1.8.0" />
-    <PackageReference Include="Reveal.Sdk.Dom" Version="0.1.656-beta" />
+    <PackageReference Include="Reveal.Sdk.AspNetCore" Version="1.8.3" />
+    <PackageReference Include="Reveal.Sdk.Data.PostgreSQL" Version="1.8.3" />
+    <PackageReference Include="Reveal.Sdk.Dom" Version="0.1.660-beta" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 

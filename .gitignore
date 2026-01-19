@@ -145,3 +145,9 @@ _Dependencies/
 server/node-js/.env
 server/node-ts/.env
 server/java/src/main/resources/application.properties
+
+# ----------------------------
+# macOS
+# ----------------------------
+.DS_Store
+**/.DS_Store

@@ -1,11 +1,14 @@
 # SQL Server Configuration
-SQL_SERVER_HOST=
-SQL_SERVER_DATABASE=
-SQL_SERVER_USERNAME=
-SQL_SERVER_PASSWORD=
-SQL_SERVER_SCHEMA=
+POSTGRES_HOST=
+POSTGRES_DATABASE=
+POSTGRES_USERNAME=
+POSTGRES_PASSWORD=
+POSTGRES_SCHEMA=
 
 # Server Configuration
 PORT=5111
+
+# Spring Boot server port
+server.port=5117
 
 spring.web.resources.static-locations=classpath:/static/images/
