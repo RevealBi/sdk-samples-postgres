@@ -4,7 +4,7 @@ We’re excited to kick off your **Reveal BI Proof of Concept**!
 
 Below are the key resources to help you get started — from **Postgres SQL backend integration** to **frontend setup and customization**. We’ll review these on our call along with a few additional items.
 
-📌 **Note:** Fred will send you the **Reveal Trial License Key** after our meeting so you can begin setup.
+📌 **Note:** You rep will send you the **Reveal Trial License Key** after our meeting so you can begin setup.
 
 ---
 
