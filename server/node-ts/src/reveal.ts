@@ -95,12 +95,12 @@ const userContextProvider = (request: IncomingMessage): RVUserContext => {
   
   props.set("FilterTables", filterTables);
   
-  // Set SQL Server properties from .env file
-  props.set("Host", process.env.SQL_SERVER_HOST);
-  props.set("Database", process.env.SQL_SERVER_DATABASE);
-  props.set("Username", process.env.SQL_SERVER_USERNAME);
-  props.set("Password", process.env.SQL_SERVER_PASSWORD);
-  props.set("Schema", process.env.SQL_SERVER_SCHEMA);
+  // Set Postgres properties from .env file
+  props.set("Host", process.env.POSTGRES_HOST);
+  props.set("Database", process.env.POSTGRES_DATABASE);
+  props.set("Username", process.env.POSTGRES_USERNAME);
+  props.set("Password", process.env.POSTGRES_PASSWORD);
+  props.set("Schema", process.env.POSTGRES_SCHEMA);
     
   return new RVUserContext(userId, props);
 };

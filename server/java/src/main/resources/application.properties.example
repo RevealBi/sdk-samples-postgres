@@ -1,14 +1,9 @@
-# SQL Server Configuration
+# Postgres Configuration
 POSTGRES_HOST=
 POSTGRES_DATABASE=
 POSTGRES_USERNAME=
 POSTGRES_PASSWORD=
 POSTGRES_SCHEMA=
 
-# Server Configuration
-PORT=5111
-
 # Spring Boot server port
-server.port=5117
-
-spring.web.resources.static-locations=classpath:/static/images/
+server.port=5111

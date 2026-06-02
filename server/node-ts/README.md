@@ -1,6 +1,6 @@
 # Reveal SDK TypeScript Server
 
-A TypeScript implementation of the Reveal SDK Node.js server with SQL Server data source support, mimicking the JavaScript code structure.
+A TypeScript implementation of the Reveal SDK Node.js server with Postgres data source support, mimicking the JavaScript code structure.
 
 ## Project Structure
 
@@ -20,8 +20,8 @@ tsconfig.json        - TypeScript configuration
 
 ### Reveal SDK Configuration (`reveal.ts`)
 - User context provider with header-based authentication
-- SQL Server authentication provider
-- Data source provider for SQL Server connections
+- Postgres authentication provider
+- Data source provider for Postgres connections
 - Data source item provider for custom queries and stored procedures
 - Data source item filter for role-based access control
 - Dashboard provider for file-based dashboard storage
@@ -51,11 +51,11 @@ tsconfig.json        - TypeScript configuration
 3. Configure environment variables in `.env`:
    ```
    PORT=5111
-   SQL_SERVER_HOST=your_server_host
-   SQL_SERVER_DATABASE=your_database_name
-   SQL_SERVER_USERNAME=your_username
-   SQL_SERVER_PASSWORD=your_password
-   SQL_SERVER_SCHEMA=dbo
+   POSTGRES_HOST=your_server_host
+   POSTGRES_DATABASE=your_database_name
+   POSTGRES_USERNAME=your_username
+   POSTGRES_PASSWORD=your_password
+   POSTGRES_SCHEMA=public
    ```
 
 ## Running the Server

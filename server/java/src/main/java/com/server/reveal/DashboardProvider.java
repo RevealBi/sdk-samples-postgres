@@ -1,15 +1,15 @@
 package com.server.reveal;
 
+import io.revealbi.core.IRVDashboardProvider;
+import io.revealbi.core.IRVUserContext;
+import org.springframework.stereotype.Component;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
-import com.infragistics.reveal.sdk.api.IRVUserContext;
-import com.infragistics.reveal.sdk.api.IRVDashboardProvider;
-import org.springframework.stereotype.Component;
 
 @Component
 public class DashboardProvider implements IRVDashboardProvider {
@@ -24,6 +24,6 @@ public class DashboardProvider implements IRVDashboardProvider {
     public void saveDashboard(IRVUserContext userContext, String dashboardId, InputStream dashboardStream) throws IOException {
         String filePath = System.getProperty("user.dir") + "/dashboards/" + dashboardId + ".rdash";
         System.out.println("Saving file to: " + filePath);
-       Files.copy(dashboardStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING); 
-    }	
+        Files.copy(dashboardStream, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+    }
 }

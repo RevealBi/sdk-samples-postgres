@@ -16,25 +16,24 @@
 </head>
 
 <body>
-    <div id="viewer"></div>    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <!-- Do not use CDN in production - download JS/TS files local -->
-    <script src="https://dl.revealbi.io/reveal/libs/1.8.3/infragistics.reveal.js"></script>
+    <div id="viewer"></div>
 
-    <script type="text/javascript">
-        $.ig.RevealSdkSettings.setBaseUrl("http://localhost:5117/");          
-        var revealView = new $.ig.RevealView("#viewer");               
-        revealView.startInEditMode = true;  
+    <!-- Reveal SDK 2.0 ships as an ES module. Do not use a CDN in production - download the package locally. -->
+    <script type="module">
+        import { RevealView, RevealSdkSettings, RVPostgresDataSource, RevealDataSources } from "https://cdn.jsdelivr.net/npm/reveal-sdk/dist/reveal-sdk.esm.js";
 
-        revealView.onDataSourcesRequested = (callback) => {        
-            var sqlServerDataSource = new $.ig.RVPostgresDataSource();
-            sqlServerDataSource.id="sqlServer1";
-            sqlServerDataSource.title = "Northwind SQL Data";
-                                    
-            callback(new $.ig.RevealDataSources([sqlServerDataSource], 
+        RevealSdkSettings.setBaseUrl("http://localhost:5111/");
+        var revealView = new RevealView("#viewer");
+        revealView.startInEditMode = true;
+
+        revealView.onDataSourcesRequested = (callback) => {
+            var postgresDataSource = new RVPostgresDataSource();
+            postgresDataSource.id = "postgres1";
+            postgresDataSource.title = "Northwind Postgres Data";
+
+            callback(new RevealDataSources([postgresDataSource],
                 [], false));
-           };
+        };
     </script>
 </body>
 

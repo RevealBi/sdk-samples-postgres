@@ -28,24 +28,22 @@
 
     <div id="revealView"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" ></script>    
-    <script>window.revealDisableKeyboardManagement = true;</script>   
-    <!-- Do not use CDN in production - download JS/TS files local -->
-    <script src="https://dl.revealbi.io/reveal/libs/1.8.3/infragistics.reveal.js"></script>
+    <script>window.revealDisableKeyboardManagement = true;</script>
+    <!-- Reveal SDK 2.0 ships as an ES module. Do not use a CDN in production - download the package locally. -->
+    <script type="module">
+        import { RevealView, RevealSdkSettings, RVDashboard, RVDashboardDataType } from "https://cdn.jsdelivr.net/npm/reveal-sdk/dist/reveal-sdk.esm.js";
 
-    <script type="text/javascript">        
-        $.ig.RevealSdkSettings.setBaseUrl("http://localhost:5117/");          
-        // $.ig.RevealSdkSettings.betaFeatures.enable("newTooltip");
-        // $.ig.RevealSdkSettings.betaFeatures.enable("newTooltip", "newDataGrid", "newPieChart", "newDonutChart") ;
+        RevealSdkSettings.setBaseUrl("http://localhost:5111/");
+        // RevealSdkSettings.betaFeatures.enable("newTooltip");
+        // RevealSdkSettings.betaFeatures.enable("newTooltip", "newDataGrid", "newPieChart", "newDonutChart");
 
         let revealView;
         let dashboards = [];
-        
+
         // Load dashboard names from API
         async function loadDashboardNames() {
             try {
-                const response = await fetch('http://localhost:5117/dashboards/names');
+                const response = await fetch('http://localhost:5111/dashboards/names');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -92,15 +90,15 @@
             const loadingIndicator = document.getElementById('loadingIndicator');
             loadingIndicator.classList.add('show');
             
-            $.ig.RVDashboard.loadDashboard(dashboardFileName).then(dashboard => {
+            RVDashboard.loadDashboard(dashboardFileName).then(dashboard => {
                 if (!revealView) {
-                    revealView = new $.ig.RevealView("#revealView");
+                    revealView = new RevealView("#revealView");
                     revealView.interactiveFilteringEnabled = true;
                     revealView.showToolbar = true;
-                    
+
                     revealView.onFieldsInitializing = function (args) {
                         args.fields.forEach(f => {
-                            if (f.type == $.ig.RVDashboardDataType.Date || f.type == $.ig.RVDashboardDataType.DateTime) {
+                            if (f.type == RVDashboardDataType.Date || f.type == RVDashboardDataType.DateTime) {
                                 f.weekLevelEnabled = true;
                             }
                         });
@@ -114,14 +112,12 @@
             });
         }
         
-        // Initialize when page loads
-        $(document).ready(function() {
+        // Initialize when page loads (module scripts run after the DOM is parsed)
+        loadDashboardNames();
+
+        // Refresh button click handler
+        document.getElementById('refreshBtn').addEventListener('click', function() {
             loadDashboardNames();
-            
-            // Refresh button click handler
-            document.getElementById('refreshBtn').addEventListener('click', function() {
-                loadDashboardNames();
-            });
         });
     </script>
 </body>

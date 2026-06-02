@@ -76,12 +76,12 @@ const userContextProvider = (request) => {
   
   props.set("FilterTables", filterTables);
   
-  // Set SQL Server properties from .env file
-  props.set("Host", process.env.SQL_SERVER_HOST);
-  props.set("Database", process.env.SQL_SERVER_DATABASE);
-  props.set("Username", process.env.SQL_SERVER_USERNAME);
-  props.set("Password", process.env.SQL_SERVER_PASSWORD);
-  props.set("Schema", process.env.SQL_SERVER_SCHEMA);
+  // Set Postgres properties from .env file
+  props.set("Host", process.env.POSTGRES_HOST);
+  props.set("Database", process.env.POSTGRES_DATABASE);
+  props.set("Username", process.env.POSTGRES_USERNAME);
+  props.set("Password", process.env.POSTGRES_PASSWORD);
+  props.set("Schema", process.env.POSTGRES_SCHEMA);
     
   return new reveal.RVUserContext(userId, props);
 };
@@ -89,8 +89,8 @@ const userContextProvider = (request) => {
 // Step 2 - Set up your Authentication Provider
 const authenticationProvider = async (userContext, dataSource) => {
     if (dataSource instanceof reveal.RVPostgresDataSource) {
-      const username = userContext.properties.get("Username") || process.env.SQL_SERVER_USERNAME;
-      const password = userContext.properties.get("Password") || process.env.SQL_SERVER_PASSWORD;
+      const username = userContext.properties.get("Username") || process.env.POSTGRES_USERNAME;
+      const password = userContext.properties.get("Password") || process.env.POSTGRES_PASSWORD;
       return new reveal.RVUsernamePasswordDataSourceCredential(username, password);
     }
 }
@@ -98,8 +98,8 @@ const authenticationProvider = async (userContext, dataSource) => {
 // Step 3 - Set up your Data Source Provider
 const dataSourceProvider = async (userContext, dataSource) => {
     if (dataSource instanceof reveal.RVPostgresDataSource) {
-        const host = userContext.properties.get("Host") || process.env.SQL_SERVER_HOST;
-        const database = userContext.properties.get("Database") || process.env.SQL_SERVER_DATABASE;        
+        const host = userContext.properties.get("Host") || process.env.POSTGRES_HOST;
+        const database = userContext.properties.get("Database") || process.env.POSTGRES_DATABASE;        
         dataSource.host = host;
         dataSource.database = database;
   }

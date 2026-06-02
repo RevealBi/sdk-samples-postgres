@@ -1,34 +1,35 @@
 package com.server.reveal;
 
-import com.infragistics.reveal.sdk.api.IRVUserContext;
-import com.infragistics.reveal.sdk.base.RVUserContext;
-import com.infragistics.reveal.sdk.rest.RVContainerRequestAwareUserContextProvider;
+import io.revealbi.core.IRVUserContext;
+import io.revealbi.core.RVUserContext;
+import io.revealbi.servlet.IRVServletUserContextProvider;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
-import jakarta.ws.rs.container.ContainerRequestContext;
 
 @Component
-public class UserContextProvider extends RVContainerRequestAwareUserContextProvider {
+public class UserContextProvider implements IRVServletUserContextProvider {
 
-    @Value("${POSTGRES_HOST}")
+    @Value("${POSTGRES_HOST:localhost}")
     private String postgresHost;
 
-    @Value("${POSTGRES_DATABASE}")
+    @Value("${POSTGRES_DATABASE:Northwind}")
     private String postgresDatabase;
 
-    @Value("${POSTGRES_USERNAME}")
+    @Value("${POSTGRES_USERNAME:postgres}")
     private String postgresUsername;
 
-    @Value("${POSTGRES_PASSWORD}")
+    @Value("${POSTGRES_PASSWORD:}")
     private String postgresPassword;
 
-    @Value("${POSTGRES_SCHEMA}")
+    @Value("${POSTGRES_SCHEMA:public}")
     private String postgresSchema;
 
     @Override
-    protected IRVUserContext getUserContext(ContainerRequestContext requestContext) {
-        String headerValue = requestContext.getHeaderString("x-header-one");
+    public IRVUserContext getUserContext(HttpServletRequest request) {
+        String headerValue = request.getHeader("x-header-one");
         String userId = null;
         String orderId = null;
 
@@ -51,13 +52,13 @@ public class UserContextProvider extends RVContainerRequestAwareUserContextProvi
         // default to User role
         String role = "User";
 
-        // null is used here just for demo 
+        // null is used here just for demo
         if ("BLONP".equals(userId) || userId == null) {
             role = "Admin";
         }
 
-        String[] filterTables = role.equals("Admin") 
-            ? new String[0] 
+        String[] filterTables = role.equals("Admin")
+            ? new String[0]
             : new String[]{"customers", "orders"};
 
         var props = new HashMap<String, Object>();
@@ -70,7 +71,6 @@ public class UserContextProvider extends RVContainerRequestAwareUserContextProvi
         props.put("Schema", postgresSchema);
         props.put("FilterTables", filterTables);
 
-        RVUserContext userContext = new RVUserContext(userId, props);
-        return userContext; 
+        return new RVUserContext(userId, props);
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "reveal-sdk-nodejs-server",
   "version": "1.0.0",
-  "description": "Node.js Reveal SDK Server with SQL Server data source support, matching ASP.NET Core implementation",
+  "description": "Node.js Reveal SDK Server with Postgres data source support, matching ASP.NET Core implementation",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
@@ -11,7 +11,7 @@
     "reveal",
     "sdk",
     "nodejs",
-    "sql-server",
+    "postgres",
     "dashboard"
   ],
   "author": "",
@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^4.18.2",
-    "reveal-sdk-node": "^1.8.3",
+    "reveal-sdk-node": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }

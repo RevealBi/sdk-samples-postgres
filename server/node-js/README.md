@@ -12,11 +12,11 @@ This Node.js implementation matches the functionality of the ASP.NET Core Reveal
 
 ### 2. AuthenticationProvider
 - Uses credentials from user context properties
-- Returns `RVUsernamePasswordDataSourceCredential` for SQL Server data sources
+- Returns `RVUsernamePasswordDataSourceCredential` for Postgres data sources
 - Matches the C# `AuthenticationProvider.cs` functionality
 
 ### 3. DataSourceProvider
-- Updates SQL Server data source properties from user context
+- Updates Postgres data source properties from user context
 - Sets host and database from configuration
 - Matches the C# `DataSourceProvider.cs` functionality
 
@@ -43,15 +43,15 @@ This Node.js implementation matches the functionality of the ASP.NET Core Reveal
 
 ## Configuration
 
-The server uses environment variables for SQL Server configuration. Create a `.env` file in the project root:
+The server uses environment variables for Postgres configuration. Create a `.env` file in the project root:
 
 ```env
-# SQL Server Configuration
-SQL_SERVER_HOST=localhost
-SQL_SERVER_DATABASE=Northwind
-SQL_SERVER_USERNAME=sa
-SQL_SERVER_PASSWORD=your-password-here
-SQL_SERVER_SCHEMA=dbo
+# Postgres Configuration
+POSTGRES_HOST=localhost
+POSTGRES_DATABASE=Northwind
+POSTGRES_USERNAME=postgres
+POSTGRES_PASSWORD=your-password-here
+POSTGRES_SCHEMA=public
 
 # Server Configuration
 PORT=5111
@@ -61,7 +61,7 @@ You can copy `.env.example` to `.env` and update the values as needed.
 
 ## Usage
 
-1. Create a `.env` file with your SQL Server connection details (see `.env.example`)
+1. Create a `.env` file with your Postgres connection details (see `.env.example`)
 2. Ensure dashboard files are present in the `Dashboards` directory
 3. Run the server with `npm start`
 4. The server will listen on the port specified in the `PORT` environment variable (default: 5111)

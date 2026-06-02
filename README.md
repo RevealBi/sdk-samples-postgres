@@ -4,6 +4,10 @@ You'll find everything you need to learn and implement a Reveal SDK application 
 
 Find the server (Node, .NET Core, Java) in the corresponding /server folders in this repo.
 
+> **📦 Now on Reveal SDK 2.0.** All servers and the client target Reveal **2.0**. For the full
+> 1.8.3 → 2.0 migration details (Java SDK rewrite, client ES-module move, package bumps, port
+> unification on `5111`), see [`UPGRADE-TO-2.0.md`](./UPGRADE-TO-2.0.md).
+
 ---
 
 # Reveal Overview & Important Notes for a PoC Kickoff
@@ -89,7 +93,16 @@ The `DashboardProvider` enables customization of dashboard saving behavior. It c
 
 ### HTML Client Setup
 
-The HTML client requires three dependencies: jQuery, JS, and the Reveal JavaScript library. These can be accessed locally or through a CDN. The client code specifies the server URL and a callback function that handles user interaction.
+With Reveal **2.0**, the client is loaded as an **ES module** imported from the `reveal-sdk` npm package (no jQuery required) — for example:
+
+```html
+<script type="module">
+    import { RevealView, RevealSdkSettings, RVDashboard } from "https://cdn.jsdelivr.net/npm/reveal-sdk/dist/reveal-sdk.esm.js";
+    RevealSdkSettings.setBaseUrl("http://localhost:5111/");
+</script>
+```
+
+The package can be loaded locally or through a CDN (use a local copy in production). The client code specifies the server URL and a callback function that handles user interaction. See [`UPGRADE-TO-2.0.md`](./UPGRADE-TO-2.0.md) for the full before/after.
 
 ### Loading Dashboards
 

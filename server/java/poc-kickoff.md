@@ -43,8 +43,13 @@ Quick refresher on setting up the Java server and HTML clients (uses Databricks 
 
 ## 🛠️ Backend Setup (Java / Postgres)
 
-- **Install & Configure Java Server SDK (Spring Boot + Jersey):**  
-  - [Reveal Server SDK Setup – Spring Boot / Jersey](https://help.revealbi.io/web/getting-started-spring-boot-jersey/)
+> **Now on Reveal Java SDK 2.0.** The sample uses the servlet-based
+> `io.revealbi:reveal-sdk-servlet:2.0.0` SDK (Spring Boot 3). The older Jersey/JAX-RS
+> integration from 1.x has been removed — see [`UPGRADE-TO-2.0.md`](../../UPGRADE-TO-2.0.md)
+> at the repo root for the full migration details.
+
+- **Install & Configure the Reveal Java Server SDK (Spring Boot):**  
+  - [Reveal Server SDK Setup](https://help.revealbi.io/web/server/)
 
 Use the Postgres sample repo above together with this guide to stand up your Reveal server with a Postgres backend.
 

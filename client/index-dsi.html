@@ -37,64 +37,63 @@
     </div>
     
     <div id="revealView"></div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <!-- Do not use CDN in production - download JS/TS files local -->
-    <script src="https://dl.revealbi.io/reveal/libs/1.8.3/infragistics.reveal.js"></script>
 
-    <script type="text/javascript">
-        $.ig.RevealSdkSettings.setBaseUrl("http://localhost:5117/");     
-        $.ig.RevealSdkSettings.enableActionsOnHoverTooltip = true;
+    <!-- Reveal SDK 2.0 ships as an ES module. Do not use a CDN in production - download the package locally. -->
+    <script type="module">
+        import { RevealView, RevealSdkSettings, RVPostgresDataSource, RVPostgresDataSourceItem, RevealDataSources } from "https://cdn.jsdelivr.net/npm/reveal-sdk/dist/reveal-sdk.esm.js";
 
-        $.ig.RevealSdkSettings.setAdditionalHeadersProvider(function (url) {
-            return headers;
-        });
+        RevealSdkSettings.setBaseUrl("http://localhost:5111/");
+        RevealSdkSettings.enableActionsOnHoverTooltip = true;
 
         const headers = {};
 
-        var revealView = new $.ig.RevealView("#revealView");
+        RevealSdkSettings.setAdditionalHeadersProvider(function (url) {
+            return headers;
+        });
+
+        var revealView = new RevealView("#revealView");
         revealView.interactiveFilteringEnabled = true;
-        revealView.startInEditMode = true;    
+        revealView.startInEditMode = true;
         revealView.onDataSourcesRequested = (callback) => {
             // Set values to pass to server
-            var selectedUserId = $('#userId').val();
-            var selectedOrderId = $('#orderId').val();
+            var selectedUserId = document.getElementById('userId').value;
+            var selectedOrderId = document.getElementById('orderId').value;
 
             headers["x-header-one"] = `userId:${selectedUserId},orderId:${selectedOrderId}`;
 
             console.log(headers["x-header-one"]);
 
-            var sqlServerDataSource = new $.ig.RVPostgresDataSource();
-            sqlServerDataSource.id="sqlServer";
-            sqlServerDataSource.title = "SQL Server Data Source";
-            sqlServerDataSource.subtitle = "Full Northwind Database";
+            var postgresDataSource = new RVPostgresDataSource();
+            postgresDataSource.id = "postgres";
+            postgresDataSource.title = "Postgres Data Source";
+            postgresDataSource.subtitle = "Full Northwind Database";
 
-            // // SQL Server Data Source Item in Stored Procs
-            var sqlDataSourceItem1 = new $.ig.RVPostgresDataSourceItem(sqlServerDataSource);
-            sqlDataSourceItem1.id="CustomerOrders";
-            sqlDataSourceItem1.title = "Customer Orders";
-            sqlDataSourceItem1.subtitle = "Custom SQL Query (orderId)";
+            // Postgres Data Source Items - functions and ad-hoc queries
+            var postgresDataSourceItem1 = new RVPostgresDataSourceItem(postgresDataSource);
+            postgresDataSourceItem1.id = "CustomerOrders";
+            postgresDataSourceItem1.title = "Customer Orders";
+            postgresDataSourceItem1.subtitle = "Custom SQL Query (orderId)";
 
-            var sqlDataSourceItem2 = new $.ig.RVPostgresDataSourceItem(sqlServerDataSource);
-            sqlDataSourceItem2.id="CustOrderHist";
-            sqlDataSourceItem2.title = "Customer Orders History";
-            sqlDataSourceItem2.subtitle = "Stored Procedure (customerId)";
+            var postgresDataSourceItem2 = new RVPostgresDataSourceItem(postgresDataSource);
+            postgresDataSourceItem2.id = "CustOrderHist";
+            postgresDataSourceItem2.title = "Customer Orders History";
+            postgresDataSourceItem2.subtitle = "Function (customerId)";
 
-            var sqlDataSourceItem3 = new $.ig.RVPostgresDataSourceItem(sqlServerDataSource);
-            sqlDataSourceItem3.id="CustOrdersOrders";
-            sqlDataSourceItem3.title = "Customer Orders Orders";
-            sqlDataSourceItem3.subtitle = "Stored Procedure  (customerId)";
+            var postgresDataSourceItem3 = new RVPostgresDataSourceItem(postgresDataSource);
+            postgresDataSourceItem3.id = "CustOrdersOrders";
+            postgresDataSourceItem3.title = "Customer Orders Orders";
+            postgresDataSourceItem3.subtitle = "Function (customerId)";
 
-            var sqlDataSourceItem4 = new $.ig.RVPostgresDataSourceItem(sqlServerDataSource);
-            sqlDataSourceItem4.id="TenMostExpensiveProducts";
-            sqlDataSourceItem4.title = "Ten Most Expensive Products";
-            sqlDataSourceItem4.subtitle = "Stored Procedure";
+            var postgresDataSourceItem4 = new RVPostgresDataSourceItem(postgresDataSource);
+            postgresDataSourceItem4.id = "TenMostExpensiveProducts";
+            postgresDataSourceItem4.title = "Ten Most Expensive Products";
+            postgresDataSourceItem4.subtitle = "Function";
 
             //**********************************************
             // Note, this is the callback that loads everything above into the dialog.  If you don't want to show the entire
-            // database, just remove sqlServerDataSource from the array and leave it empty like this []
-            callback(new $.ig.RevealDataSources([sqlServerDataSource],
-                [sqlDataSourceItem1, sqlDataSourceItem2, sqlDataSourceItem3, sqlDataSourceItem4 ], false));
+            // database, just remove postgresDataSource from the array and leave it empty like this []
+            callback(new RevealDataSources([postgresDataSource],
+                [postgresDataSourceItem1, postgresDataSourceItem2, postgresDataSourceItem3, postgresDataSourceItem4], false));
 
             };
     </script>
