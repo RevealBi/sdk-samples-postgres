@@ -138,7 +138,7 @@ const dataSourceItemProvider = async (userContext: IRVUserContext | null, dataSo
 
         // Get the UserContext properties
         const customerId = userContext?.userId;
-        const orderId = userContext?.properties.get("OrderId");
+        const orderId = userContext?.properties.get("OrderId") as string | undefined;
         const isAdmin = userContext?.properties.get("Role") === "Admin";
         const filterTables = userContext?.properties.get("FilterTables") as string[] || [];
 
@@ -156,21 +156,36 @@ const dataSourceItemProvider = async (userContext: IRVUserContext | null, dataSo
                 dataSourceItem.functionParameters = { customer_id: customerId };
                 break;
 
-            // Example of an ad-hoc-query
+            // Example of an ad-hoc query with a parameter.
+            // Never concatenate userContext values into the SQL text. Use a named
+            // placeholder (@name) in customQuery and pass the value in
+            // customQueryParameters - the value is then bound by the driver, so it
+            // can never be interpreted as SQL.
+            //
+            // Bound parameters are typed, so the value has to match the column type.
+            // orderid is numeric (smallint), and passing the raw string would make
+            // Postgres resolve "smallint = text" and fail with 42883. Parse the value
+            // instead of casting inside the query. A missing or non-numeric OrderId
+            // falls back to -1, which matches no row, rather than returning every row.
             case "CustomerOrders":
-                const customQuery = `SELECT * FROM orders WHERE orderid = '${orderId}'`;
-                dataSourceItem.customQuery = customQuery;
+                const parsedOrderId = Number.parseInt(orderId ?? "", 10);
+                dataSourceItem.customQuery = "SELECT * FROM orders WHERE orderid = @orderId";
+                dataSourceItem.customQueryParameters = {
+                    "@orderId": Number.isNaN(parsedOrderId) ? -1 : parsedOrderId
+                };
                 break;
 
             default:
                 // Check for general table access logic
                 if (filterTables.includes(dataSourceItem.table || "")) {
                     if (isAdmin) {
-                        const adminQuery = `SELECT * FROM ${dataSourceItem.table}`;
-                        dataSourceItem.customQuery = adminQuery;
+                        // The table name is an identifier, so it cannot be a parameter.
+                        // It is safe here because it was matched against FilterTables,
+                        // a server-side allow list, and not taken from client input.
+                        dataSourceItem.customQuery = `SELECT * FROM ${dataSourceItem.table}`;
                     } else {
-                        const userQuery = `SELECT * FROM ${dataSourceItem.table} WHERE customerid = '${customerId}'`;
-                       dataSourceItem.customQuery = userQuery;
+                        dataSourceItem.customQuery = `SELECT * FROM ${dataSourceItem.table} WHERE customerid = @customerId`;
+                        dataSourceItem.customQueryParameters = { "@customerId": customerId };
                     }
                 }
                 break;

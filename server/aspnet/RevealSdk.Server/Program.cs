@@ -19,7 +19,7 @@ builder.Services.AddControllers().AddReveal( builder =>
 });
 
 builder.Services.Configure<ServerOptions>(
-    builder.Configuration.GetSection("CloudServer"));
+    builder.Configuration.GetSection("Server"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

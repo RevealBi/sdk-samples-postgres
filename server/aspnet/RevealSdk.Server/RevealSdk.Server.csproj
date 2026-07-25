@@ -37,8 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reveal.Sdk.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="Reveal.Sdk.Data.PostgreSQL" Version="2.0.0" />
+    <PackageReference Include="Reveal.Sdk.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Reveal.Sdk.Data.PostgreSQL" Version="2.1.0" />
     <PackageReference Include="Reveal.Sdk.Dom" Version="0.1.660-beta" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>

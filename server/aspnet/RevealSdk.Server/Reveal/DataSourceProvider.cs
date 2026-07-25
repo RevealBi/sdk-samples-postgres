@@ -58,10 +58,23 @@ namespace RevealSdk.Server.Reveal
                     break;
 
 
-                // Example of an ad-hoc-query
+                // Example of an ad-hoc query with a parameter.
+                // Never concatenate userContext values into the SQL text. Use a named
+                // placeholder (@name) in CustomQuery and pass the value in
+                // CustomQueryParameters - the value is then bound by the driver, so it
+                // can never be interpreted as SQL.
+                //
+                // Bound parameters are typed, so the value has to match the column type.
+                // orderid is numeric (smallint), and passing the raw string would make
+                // Postgres resolve "smallint = text" and fail with 42883. Parse the value
+                // instead of casting inside the query. A missing or non-numeric OrderId
+                // falls back to -1, which matches no row, rather than returning every row.
                 case "CustomerOrders":
-                    string customQuery = $"SELECT * FROM Orders WHERE OrderId = '{orderId}'";
-                    sqlDsi.CustomQuery = customQuery;
+                    sqlDsi.CustomQuery = "SELECT * FROM Orders WHERE OrderId = @orderId";
+                    sqlDsi.CustomQueryParameters = new Dictionary<string, object>
+                    {
+                        ["@orderId"] = int.TryParse(orderId, out var parsedOrderId) ? parsedOrderId : -1
+                    };
                     break;
 
                 default:
@@ -70,14 +83,21 @@ namespace RevealSdk.Server.Reveal
                     {
                         if (isAdmin)
                         {
+                            // The table name is an identifier, so it cannot be a parameter.
+                            // It is safe here because it was matched against FilterTables,
+                            // a server-side allow list, and not taken from client input.
                             sqlDsi.CustomQuery = $"SELECT * FROM {sqlDsi.Table}";
                         }
                         else
                         {
-                            sqlDsi.CustomQuery = $"SELECT * FROM {sqlDsi.Table} WHERE customerId = '{customerId}'";
+                            sqlDsi.CustomQuery = $"SELECT * FROM {sqlDsi.Table} WHERE customerId = @customerId";
+                            sqlDsi.CustomQueryParameters = new Dictionary<string, object>
+                            {
+                                ["@customerId"] = customerId
+                            };
                         }
                     }
-                break; 
+                break;
             }
             return Task.FromResult(dataSourceItem);
         }

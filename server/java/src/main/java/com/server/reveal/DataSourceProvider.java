@@ -62,19 +62,43 @@ public class DataSourceProvider implements IRVDataSourceProvider {
                 postgresDsi.setFunctionParameters(functionParameters);
                 break;
 
-            // Example of an ad-hoc-query
+            // Example of an ad-hoc query with a parameter.
+            // Never concatenate userContext values into the SQL text. Use a named
+            // placeholder (@name) in the custom query and pass the value in
+            // setCustomQueryParameters - the value is then bound by the driver, so it
+            // can never be interpreted as SQL.
+            //
+            // Bound parameters are typed, so the value has to match the column type.
+            // orderid is numeric (smallint), and passing the raw string would make
+            // Postgres resolve "smallint = text" and fail with 42883. Parse the value
+            // instead of casting inside the query. A missing or non-numeric OrderId
+            // falls back to -1, which matches no row, rather than returning every row.
             case "CustomerOrders":
-                String customQuery = "SELECT * FROM orders WHERE orderid = '" + orderId + "'";
-                postgresDsi.setCustomQuery(customQuery);
+                int parsedOrderId;
+                try {
+                    parsedOrderId = Integer.parseInt(orderId != null ? orderId.trim() : "");
+                } catch (NumberFormatException e) {
+                    parsedOrderId = -1;
+                }
+                postgresDsi.setCustomQuery("SELECT * FROM orders WHERE orderid = @orderId");
+                HashMap<String, Object> orderParameters = new HashMap<>();
+                orderParameters.put("@orderId", parsedOrderId);
+                postgresDsi.setCustomQueryParameters(orderParameters);
                 break;
 
             default:
                 // Check for general table access logic
                 if (java.util.Arrays.asList(filterTables).contains(postgresDsi.getTable())) {
                     if (isAdmin) {
+                        // The table name is an identifier, so it cannot be a parameter.
+                        // It is safe here because it was matched against FilterTables,
+                        // a server-side allow list, and not taken from client input.
                         postgresDsi.setCustomQuery("SELECT * FROM " + postgresDsi.getTable());
                     } else {
-                        postgresDsi.setCustomQuery("SELECT * FROM " + postgresDsi.getTable() + " WHERE customerid = '" + customerId + "'");
+                        postgresDsi.setCustomQuery("SELECT * FROM " + postgresDsi.getTable() + " WHERE customerid = @customerId");
+                        HashMap<String, Object> customerParameters = new HashMap<>();
+                        customerParameters.put("@customerId", customerId);
+                        postgresDsi.setCustomQueryParameters(customerParameters);
                     }
                 }
                 break;
